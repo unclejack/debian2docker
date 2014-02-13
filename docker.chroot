@@ -4,3 +4,15 @@ set -e
 
 wget https://get.docker.io/builds/Linux/x86_64/docker-latest -O /usr/bin/docker
 chmod +x /usr/bin/docker
+
+# create the cgroup mount directory
+mkdir /cgroup
+
+# set up the required fstab entries
+cat << EOF > /etc/fstab
+proc    /proc       proc    defaults    0   0
+sysfs   /sys        sysfs   defaults    0   0
+devpts  /dev/pts    devpts  defaults    0   0
+tmpfs   /dev/shm    tmpfs   defaults    0   0
+cgroup  /cgroup     cgroup  defaults    0   0
+EOF
