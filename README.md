@@ -7,7 +7,7 @@ This repository is meant to be a staging area for boot2docker.
 Building debian2docker is quite simple:
 
 ```
-docker rmi run-debian2docker
+docker rm run-debian2docker
 docker build -t debian2docker -rm .
 docker run -i -t -privileged -name run-debian2docker debian2docker
 docker cp run-debian2docker:/root/lb/binary.hybrid.iso .
