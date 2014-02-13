@@ -12,6 +12,8 @@ RUN mkdir $LB ;\
 RUN cp /usr/share/doc/live-build/examples/hooks/stripped.chroot $LB/config/hooks/
 ADD kernelclean.chroot $LB/config/hooks/
 ADD docker.chroot $LB/config/hooks/
+ADD bootloader.binary $LB/config/hooks/
 ADD reqs.list.chroot $LB/config/package-lists/
+ADD isolinux/ $LB/config/includes.binary/isolinux/
 WORKDIR /root/lb
 CMD ["lb", "build"]
