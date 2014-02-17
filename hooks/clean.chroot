@@ -1,0 +1,7 @@
+#!/bin/sh
+
+set -e
+rm -f /usr/bin/omshell
+rm -f /var/cache/debconf/templates.dat
+rm -f /var/cache/debconf/templates.dat-old
+rm -f /usr/bin/openssl
