@@ -4,8 +4,14 @@ set -e
 
 rm -rf /lib/modules/*/kernel/sound/*
 rm -rf /lib/modules/*/kernel/drivers/infiniband/*
+rm -rf /lib/modules/*/kernel/drivers/gpu/*
 rm -rf /lib/modules/*/kernel/drivers/isdn/*
-rm -rf /lib/modules/*/kernel/drivers/media/video/*
-rm -rf /lib/modules/*/kernel/drivers/media/dvb/*
-rm -rf /lib/modules/*/kernel/drivers/media/dvb-core/*
-rm -rf /lib/modules/*/kernel/drivers/media/dvb-frontends/*
+rm -rf /lib/modules/*/kernel/drivers/media/*
+rm -rf /lib/modules/*/kernel/drivers/staging/lustre/*
+rm -rf /lib/modules/*/kernel/drivers/staging/comedi/*
+rm -rf /lib/modules/*/kernel/fs/ocfs2/*
+rm -rf /lib/modules/*/kernel/fs/cifs/*
+rm -rf /lib/modules/*/kernel/net/bluetooth/*
+rm -rf /lib/modules/*/kernel/net/mac80211/*
+rm -rf /lib/modules/*/kernel/net/sunrpc/*
+rm -rf /lib/modules/*/kernel/net/wireless/*
