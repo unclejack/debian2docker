@@ -2,7 +2,7 @@ FROM debian:jessie
 MAINTAINER unclejack
 ENV LB /root/lb
 RUN apt-get update;\
-  apt-get install -y apt-utils live-build bzip2 lzma xz-utils wget ca-certificates
+  apt-get install -y apt-utils live-build bzip2 lzma xz-utils squashfs-tools wget ca-certificates
 RUN mkdir $LB ;\
  cd $LB ; \
  lb config --initramfs-compression lzma --compression xz -d jessie \
