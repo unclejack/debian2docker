@@ -1,6 +1,12 @@
 # debian2docker
 
-This repository is meant to be a staging area for boot2docker.
+### What is debian2docker
+
+Debian2docker is a hybrid bootable ISO which starts an amd64 Linux system based on Debian. Its main purpose is to run Docker and to allow the execution of containers using Docker. 
+
+The ISO is currently about 55 MB and is based on Debian jessie.
+
+This project is meant to merge back into boot2docker if that's possible.
 
 ### How to build
 
@@ -15,15 +21,29 @@ mv binary.hybrid.iso debian2docker.iso
 ```
 note: the ``docker cp`` will complain ``operation not permitted`` - presumably as it tries to change the file's ownership to ``root``
 
+### How to run
+
+1. Create a VM.
+2. Add the ISO you've built as a virtual CD/DVD image.
+3. Start the VM
+4. Log in as the user `docker` and use the password `live`.
+
+Linux & qemu/kvm example:
+```
+$ kvm -cdrom debian2docker.iso
+# when the system has booted use `docker` & `live` to log in
+```
+
 ### Goals
 
 debian2docker has the following goals:
 
 1. Remain minimal - no package installation
-2. Become the new base for boot2docker.
+2. Become a new base for boot2docker.
 3. Offer only the minimal tooling required to run Docker and its containers.
 4. Make use of Debian binary packages - avoid lengthy compilation times.
 5. If a package is broken or has problems, it should be fixed upstream and used.
+6. Become an official and supported Docker distribution.
 
 ### Why Debian?
 
