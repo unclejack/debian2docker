@@ -13,7 +13,7 @@ RUN cp /usr/share/doc/live-build/examples/hooks/stripped.chroot $LB/config/hooks
 RUN sed -i 's/rm -rf \/usr\/share\/zoneinfo\/\*//g' $LB/config/hooks/stripped.chroot
 ADD hooks/ $LB/config/hooks/
 ADD reqs.list.chroot $LB/config/package-lists/
-ADD isolinux/ $LB/config/includes.binary/isolinux/
+ADD includes.binary/ $LB/config/includes.binary/
 RUN echo "boot\ninitrd.img\nvmlinuz" > $LB/config/rootfs/excludes
 WORKDIR /root/lb
 CMD ["lb", "build"]
