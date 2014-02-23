@@ -14,6 +14,7 @@ RUN sed -i 's/rm -rf \/usr\/share\/zoneinfo\/\*//g' $LB/config/hooks/stripped.ch
 ADD hooks/ $LB/config/hooks/
 ADD reqs.list.chroot $LB/config/package-lists/
 ADD includes.binary/ $LB/config/includes.binary/
+ADD includes.chroot/ $LB/config/includes.chroot/
 RUN echo "boot\ninitrd.img\nvmlinuz" > $LB/config/rootfs/excludes
 WORKDIR /root/lb
 CMD ["lb", "build"]
