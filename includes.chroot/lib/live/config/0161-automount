@@ -1,0 +1,98 @@
+#!/bin/sh
+
+LABELB2D=boot2docker-data
+LABELD2D=debian2docker-data
+MAGICB2D="boot2docker, please format-me"
+MAGICB2D="debian2docker, please format-me"
+
+# Look for partitions labeled boot2docker-data and debian2docker-data
+BOOT2DOCKER_DATA=`blkid -o device -l -t LABEL=$LABELB2D || true`
+DEBIAN2DOCKER_DATA=`blkid -o device -l -t LABEL=$LABELD2D || true`
+
+if [ ! -n "$BOOT2DOCKER_DATA" -a ! -n "$BOOT2DOCKER_DATA" ]; then
+    # Is the disk unpartitioned?, test for the 'boot2docker format-me' string
+    UNPARTITIONED_HD=`fdisk -l | grep "doesn't contain a valid partition table" | head -n 1 | sed 's/Disk \(.*\) doesn.*/\1/'`
+
+    if [ -n "$UNPARTITIONED_HD" ]; then
+        # Test for our magic string (it means that the disk was made by ./boot2docker init)
+        HEADERB2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICB2D} 2>/dev/null`
+        HEADERD2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICB2D} 2>/dev/null`
+
+        if [ "$HEADERD2D" = "$MAGICD2D"]; then
+            # Create the partition, format it and then mount it
+            echo "NEW debian2docker managed disk image ($UNPARTITIONED_HD): formatting it for use"
+            echo "NEW debian2docker managed disk image ($UNPARTITIONED_HD): formatting it for use" > /home/docker/log.log
+
+            # make one big partition
+            (echo n; echo p; echo 1; echo ; echo ; echo w) | fdisk $UNPARTITIONED_HD
+            DOCKER_DATA=`echo "${UNPARTITIONED_HD}1"`
+            mkfs.ext4 -L $LABEL $DOCKER_DATA
+
+        elif [ "$HEADERB2D" = "$MAGICB2D" ]; then
+            # Create the partition, format it and then mount it
+            echo "NEW boot2docker managed disk image ($UNPARTITIONED_HD): formatting it for use"
+            echo "NEW boot2docker managed disk image ($UNPARTITIONED_HD): formatting it for use" > /home/docker/log.log
+
+            # make one big partition
+            (echo n; echo p; echo 1; echo ; echo ; echo w) | fdisk $UNPARTITIONED_HD
+            DOCKER_DATA=`echo "${UNPARTITIONED_HD}1"`
+            mkfs.ext4 -L $LABEL $DOCKER_DATA
+        fi
+    else
+        # Pick the first ext4 as a fallback
+        # TODO: mount all Linux partitions and look for a /var/lib/docker...
+        DOCKER_DATA=`blkid | grep 'TYPE="ext4"' | head -n 1 | sed 's/:.*//'`
+    fi
+fi
+
+if [ -n "$DEBIAN2DOCKER_DATA" ]; then
+    DOCKER_DATA=$DEBIAN2DOCKER_DATA
+elif [ -n "$BOOT2DOCKER_DATA" ]; then
+    DOCKER_DATA=$BOOT2DOCKER_DATA
+fi
+
+
+if [ -n "$DOCKER_DATA" ]; then
+    PARTNAME=`echo "$DOCKER_DATA" | sed 's/.*\///'`
+    mkdir -p /mnt/$PARTNAME
+    if ! mount $DOCKER_DATA /mnt/$PARTNAME 2>/dev/null; then
+        # for some reason, mount doesn't like to modprobe btrfs
+        DOCKER_FSTYPE=`blkid -o export $DOCKER_DATA | grep TYPE= | cut -d= -f2`
+        modprobe $DOCKER_FSTYPE || true
+        mount $DOCKER_DATA /mnt/$PARTNAME
+    fi
+
+    # Just in case, the links will fail if not
+    rm -rf /var/lib/docker /var/lib/boot2docker /var/lib/debian2docker
+    if [ -d /mnt/$PARTNAME/vm ]; then
+        # The old behavior - use the entire disk for boot2docker data
+        ln -s /mnt/$PARTNAME /var/lib/docker
+
+        # Give us a link to the new cusomisation location
+        ln -s /var/lib/docker/vm /var/lib/debian2docker
+
+        # Make sure /tmp is on the disk too too
+        if [ -d /var/lib/debian2docker/tmp ]; then
+            rm -rf /var/lib/debian2docker/tmp
+        fi
+        mv /tmp /var/lib/debian2docker/tmp
+        ln -s /var/lib/debian2docker/tmp /tmp
+    else
+        # Detected a disk with a normal linux install (/var/lib/docker + more))
+        mkdir -p /var/lib
+
+        mkdir -p /mnt/$PARTNAME/var/lib/docker
+        ln -s /mnt/$PARTNAME/var/lib/docker /var/lib/docker
+
+        mkdir -p /mnt/$PARTNAME/var/lib/debian2docker
+        ln -s /mnt/$PARTNAME/var/lib/debian2docker /var/lib/debian2docker
+
+        # Make sure /tmp is on the disk too too
+        if [ -d /mnt/$PARTNAME/tmp ]; then
+            rm -rf /mnt/$PARTNAME/tmp
+        fi
+        mv /tmp /mnt/$PARTNAME/tmp
+        ln -s /mnt/$PARTNAME/tmp /tmp
+    fi
+
+fi
