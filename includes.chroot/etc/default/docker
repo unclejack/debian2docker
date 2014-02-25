@@ -1,0 +1,12 @@
+# Docker Upstart and SysVinit configuration file
+
+# Customize location of Docker binary (especially for development testing).
+#DOCKER="/usr/local/bin/docker"
+
+DOCKER_HOST="tcp://0.0.0.0:4243"
+
+# Use DOCKER_OPTS to modify the daemon startup options.
+#DOCKER_OPTS="-dns 8.8.8.8"
+
+# If you need Docker to use an HTTP proxy, it can also be specified here.
+#export http_proxy=http://127.0.0.1:3128/
