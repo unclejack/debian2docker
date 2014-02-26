@@ -5,3 +5,6 @@ rm -f /usr/bin/omshell
 rm -f /var/cache/debconf/templates.dat
 rm -f /var/cache/debconf/templates.dat-old
 rm -f /usr/bin/openssl
+rm -rf /usr/share/mime/*
+rm -rf /usr/share/X11/*
+rm -rf /usr/share/fonts/*
