@@ -15,6 +15,8 @@ ADD hooks/ $LB/config/hooks/
 ADD reqs.list.chroot $LB/config/package-lists/
 ADD includes.binary/ $LB/config/includes.binary/
 ADD includes.chroot/ $LB/config/includes.chroot/
+ADD VERSION $LB/config/includes.binary/version
+RUN cp $LB/config/includes.binary/version $LB/config/includes.chroot/etc/debian2docker-version
 RUN echo "boot\ninitrd.img\nvmlinuz" > $LB/config/rootfs/excludes
 WORKDIR /root/lb
 CMD ["lb", "build"]
