@@ -34,7 +34,7 @@ fi
 
 # if we're virtual, let's listen on $DOCKER_HOST, too
 if /bin/dmesg | /bin/egrep -q '(VirtualBox|VMware|QEMU)'; then
-	DOCKER_OPTS="$DOCKER_OPTS -H $DOCKER_HOST"
+        DOCKER_OPTS="$DOCKER_OPTS -H $DOCKER_HOST"
 else
         DOCKER_OPTS="$DOCKER_OPTS -H :4243"
 fi
@@ -44,7 +44,7 @@ fi
 DOCKER_DEVICE="$(/bin/df -P "$DOCKER_DIR" | /usr/bin/awk 'END { print $1 }')"
 DOCKER_FSTYPE="$(/sbin/blkid -o export "$DOCKER_DEVICE" | /bin/grep TYPE= | /usr/bin/cut -d= -f2)"
 if [ "$DOCKER_FSTYPE" = 'btrfs' ]; then
-    DOCKER_OPTS="$DOCKER_OPTS -s $DOCKER_FSTYPE"
+        DOCKER_OPTS="$DOCKER_OPTS -s $DOCKER_FSTYPE"
 fi
 
 # see also init_is_upstart in /lib/lsb/init-functions (which isn't available in Ubuntu 12.04, or we'd use it)
