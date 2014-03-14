@@ -18,7 +18,7 @@ if [ ! -n "$BOOT2DOCKER_DATA" -a ! -n "$BOOT2DOCKER_DATA" ]; then
         HEADERB2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICB2D} 2>/dev/null`
         HEADERD2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICB2D} 2>/dev/null`
 
-        if [ "$HEADERD2D" = "$MAGICD2D"]; then
+        if [ "$HEADERD2D" = "$MAGICD2D" ]; then
             # Create the partition, format it and then mount it
             echo "NEW debian2docker managed disk image ($UNPARTITIONED_HD): formatting it for use"
             echo "NEW debian2docker managed disk image ($UNPARTITIONED_HD): formatting it for use" > /home/docker/log.log
