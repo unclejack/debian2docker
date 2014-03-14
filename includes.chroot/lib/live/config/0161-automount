@@ -11,7 +11,7 @@ DEBIAN2DOCKER_DATA=`blkid -o device -l -t LABEL=$LABELD2D || true`
 
 if [ ! -n "$BOOT2DOCKER_DATA" -a ! -n "$BOOT2DOCKER_DATA" ]; then
     # Is the disk unpartitioned?, test for the 'boot2docker format-me' string
-    UNPARTITIONED_HD=`fdisk -l | grep "doesn't contain a valid partition table" | head -n 1 | sed 's/Disk \(.*\) doesn.*/\1/'`
+    UNPARTITIONED_HD=`fdisk -l 2>&1 | grep "doesn't contain a valid partition table" | head -n 1 | sed 's/Disk \(.*\) doesn.*/\1/'`
 
     if [ -n "$UNPARTITIONED_HD" ]; then
         # Test for our magic string (it means that the disk was made by ./boot2docker init)
