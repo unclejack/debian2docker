@@ -3,7 +3,7 @@
 LABELB2D=boot2docker-data
 LABELD2D=debian2docker-data
 MAGICB2D="boot2docker, please format-me"
-MAGICB2D="debian2docker, please format-me"
+MAGICD2D="debian2docker, please format-me"
 
 # Look for partitions labeled boot2docker-data and debian2docker-data
 BOOT2DOCKER_DATA=`blkid -o device -l -t LABEL=$LABELB2D || true`
