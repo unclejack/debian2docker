@@ -26,7 +26,7 @@ if [ ! -n "$BOOT2DOCKER_DATA" -a ! -n "$BOOT2DOCKER_DATA" ]; then
             # make one big partition
             (echo n; echo p; echo 1; echo ; echo ; echo w) | fdisk $UNPARTITIONED_HD
             DOCKER_DATA=`echo "${UNPARTITIONED_HD}1"`
-            mkfs.ext4 -L $LABEL $DOCKER_DATA
+            mkfs.ext4 -L $LABELD2D $DOCKER_DATA
 
         elif [ "$HEADERB2D" = "$MAGICB2D" ]; then
             # Create the partition, format it and then mount it
@@ -36,7 +36,7 @@ if [ ! -n "$BOOT2DOCKER_DATA" -a ! -n "$BOOT2DOCKER_DATA" ]; then
             # make one big partition
             (echo n; echo p; echo 1; echo ; echo ; echo w) | fdisk $UNPARTITIONED_HD
             DOCKER_DATA=`echo "${UNPARTITIONED_HD}1"`
-            mkfs.ext4 -L $LABEL $DOCKER_DATA
+            mkfs.ext4 -L $LABELB2D $DOCKER_DATA
         fi
     else
         # Pick the first ext4 as a fallback
