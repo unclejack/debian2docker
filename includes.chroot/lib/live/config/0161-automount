@@ -16,7 +16,7 @@ if [ ! -n "$BOOT2DOCKER_DATA" -a ! -n "$BOOT2DOCKER_DATA" ]; then
     if [ -n "$UNPARTITIONED_HD" ]; then
         # Test for our magic string (it means that the disk was made by ./boot2docker init)
         HEADERB2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICB2D} 2>/dev/null`
-        HEADERD2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICB2D} 2>/dev/null`
+        HEADERD2D=`dd if=$UNPARTITIONED_HD bs=1 count=${#MAGICD2D} 2>/dev/null`
 
         if [ "$HEADERD2D" = "$MAGICD2D" ]; then
             # Create the partition, format it and then mount it
