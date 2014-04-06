@@ -8,7 +8,8 @@ RUN mkdir $LB ;\
  lb config --initramfs-compression lzma --compression xz -d jessie \
  --debian-installer false --apt-indices false --apt-recommends false \
  --debootstrap-options "--variant=minbase"  --firmware-chroot false \
- --memtest none live
+ --mirror-bootstrap http://http.debian.net/debian/ \
+ --memtest none --zsync false live
 RUN cp /usr/share/doc/live-build/examples/hooks/stripped.chroot $LB/config/hooks/
 RUN sed -i 's/rm -rf \/usr\/share\/zoneinfo\/\*//g' $LB/config/hooks/stripped.chroot
 ADD hooks/ $LB/config/hooks/
