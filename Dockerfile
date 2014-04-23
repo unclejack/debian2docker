@@ -20,4 +20,4 @@ ADD VERSION $LB/config/includes.binary/version
 RUN cp $LB/config/includes.binary/version $LB/config/includes.chroot/etc/debian2docker-version
 RUN echo "boot\ninitrd.img\nvmlinuz" > $LB/config/rootfs/excludes
 WORKDIR /root/lb
-CMD ["lb", "build"]
+CMD ["bash", "-c", "lb build && mv binary.hybrid.iso debian2docker.iso"]
