@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:wheezy
 MAINTAINER unclejack
 ENV LB /root/lb
 RUN apt-get update;\
@@ -8,7 +8,8 @@ RUN mkdir $LB ;\
  lb config --initramfs-compression lzma --compression xz -d jessie \
  --debian-installer false --apt-indices false --apt-recommends false \
  --debootstrap-options "--variant=minbase"  --firmware-chroot false \
- --memtest none live
+ --mirror-bootstrap http://http.debian.net/debian/ --distribution jessie \
+ --memtest none --zsync false live
 RUN cp /usr/share/doc/live-build/examples/hooks/stripped.chroot $LB/config/hooks/
 RUN sed -i 's/rm -rf \/usr\/share\/zoneinfo\/\*//g' $LB/config/hooks/stripped.chroot
 ADD hooks/ $LB/config/hooks/
@@ -19,4 +20,4 @@ ADD VERSION $LB/config/includes.binary/version
 RUN cp $LB/config/includes.binary/version $LB/config/includes.chroot/etc/debian2docker-version
 RUN echo "boot\ninitrd.img\nvmlinuz" > $LB/config/rootfs/excludes
 WORKDIR /root/lb
-CMD ["lb", "build"]
+CMD ["bash", "-c", "lb build && mv binary.hybrid.iso debian2docker.iso"]
