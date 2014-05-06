@@ -1,1 +1,18 @@
-apt-utils linux-image-amd64 wget ca-certificates iproute dhcpcd5 ifupdown iptables xz-utils sudo aufs-tools ca-certificates wget btrfs-tools openssh-server traceroute iputils-ping acpid acpi-support-base
+acpi-support-base
+acpid
+apt-utils
+aufs-tools
+btrfs-tools
+ca-certificates
+dhcpcd5
+ifupdown
+iproute
+iptables
+iputils-ping
+linux-image-amd64
+openssh-server
+sudo
+sysvinit
+traceroute
+wget
+xz-utils
