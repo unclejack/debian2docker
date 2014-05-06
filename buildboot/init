@@ -1,0 +1,12 @@
+#!/bin/sh
+mkdir /proc
+mount -t proc proc /proc
+mkdir /ramdisk
+MEMSIZE=$(free | grep 'Mem:' | awk '{ print $2 }')
+mount -t tmpfs -o size=${MEMSIZE}k,mode=0755 tmpfs /ramdisk
+cd /ramdisk
+xz -dc /rootfs.xz | cpio -i
+rm /rootfs.xz
+umount /proc
+echo booting system
+exec switch_root -c /dev/console /ramdisk /sbin/init
