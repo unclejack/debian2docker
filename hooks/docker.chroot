@@ -16,5 +16,10 @@ devpts  /dev/pts    devpts  defaults    0   0
 tmpfs   /run/shm    tmpfs   defaults    0   0
 EOF
 
+if ! getent group docker > /dev/null; then
+	# /etc/init.d/docker makes assumptions about this group existing
+	groupadd --system docker
+fi
+
 update-rc.d debian2docker-init defaults
 update-rc.d docker defaults
