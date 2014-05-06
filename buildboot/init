@@ -2,7 +2,7 @@
 mkdir /proc
 mount -t proc proc /proc
 mkdir /ramdisk
-MEMSIZE=$(free | grep 'Mem:' | awk '{ print $2 }')
+MEMSIZE=$(awk '/^MemTotal:/ { print $2 }' /proc/meminfo)
 mount -t tmpfs -o size=${MEMSIZE}k,mode=0755 tmpfs /ramdisk
 cd /ramdisk
 xz -dc /rootfs.xz | cpio -i
