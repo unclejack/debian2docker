@@ -1,0 +1,5 @@
+# autologin
+sed -ri 's!/sbin/getty.*(tty[0-9]+).*!/bin/login -f docker </dev/\1 >/dev/\1 2>\&1!g' /etc/inittab
+
+# autosudo
+echo '%docker ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
