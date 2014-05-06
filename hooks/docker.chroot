@@ -17,8 +17,12 @@ tmpfs   /run/shm    tmpfs   defaults    0   0
 EOF
 
 if ! getent group docker > /dev/null; then
-	# /etc/init.d/docker makes assumptions about this group existing
 	groupadd --system docker
+fi
+
+if ! getent passwd docker > /dev/null; then
+	useradd --gid docker --create-home --shell /bin/bash docker
+	echo 'docker:docker.io' | chpasswd
 fi
 
 update-rc.d debian2docker-init defaults

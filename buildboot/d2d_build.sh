@@ -14,7 +14,11 @@ cp -Rfp /root/hooks $BUILDDIR
 
 echo "---> running hooks"
 (
-	for i in $(cd $BUILDDIR/hooks && ls *.chroot); do echo 'running hook: ' $i; chroot $BUILDDIR /hooks/$i; done
+	cd $BUILDDIR/hooks
+	for i in *.chroot; do
+		echo ' ---> running hook: ' $i
+		chroot $BUILDDIR /hooks/$i
+	done
 	rm -rf $BUILDDIR/hooks
 )
 echo "---> setting the root password"
