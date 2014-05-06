@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides:           docker
-# Required-Start:     $syslog $remote_fs
+# Required-Start:     $syslog $remote_fs debian2docker-init
 # Required-Stop:      $syslog $remote_fs
 # Default-Start:      2 3 4 5
 # Default-Stop:       0 1 6

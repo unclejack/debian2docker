@@ -1,0 +1,26 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:           debian2docker-init
+# Required-Start:     $syslog $remote_fs
+# Required-Stop:      $syslog $remote_fs
+# Default-Start:      2 3 4 5
+# Default-Stop:       0 1 6
+# Short-Description:  debian2docker initialization
+# Description
+#  debian2docker init
+### END INIT INFO
+
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+
+# Get lsb functions
+. /lib/lsb/init-functions
+
+case "$1" in
+	start)
+		# run all the live-build hooks in /lib/live/config
+		for hook in /lib/live/config/*; do
+			"$hook"
+		done
+		;;
+esac
