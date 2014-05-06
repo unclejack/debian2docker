@@ -3,12 +3,12 @@ set -e
 
 PACKAGELISTSDIR=/root/package-lists
 
-for i in $(ls $PACKAGELISTSDIR);
+for i in $PACKAGELISTSDIR/*
 do
-PACKAGES="$PACKAGES $(cat $PACKAGELISTSDIR/$i)"
+	PACKAGES+=" $(cat $i)"
 done
 echo $PACKAGES
-export PACKAGES=$PACKAGES
+export PACKAGES
 export SUITE=jessie
 export BUILDDIR=/root/jessieout
 export MIRROR=http://http.debian.net/debian
