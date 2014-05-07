@@ -16,7 +16,7 @@ Building debian2docker is quite simple:
 docker rm run-debian2docker
 docker build -t debian2docker .
 docker run -i -t --privileged --name run-debian2docker debian2docker
-docker cp run-debian2docker:/root/lb/debian2docker.iso .
+docker cp run-debian2docker:/debian2docker.iso .
 ```
 note: the ``docker cp`` will complain ``operation not permitted`` - presumably as it tries to change the file's ownership to ``root``
 
