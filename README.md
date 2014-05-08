@@ -25,13 +25,15 @@ note: the ``docker cp`` will complain ``operation not permitted`` - presumably a
 1. Create a VM.
 2. Add the ISO you've built as a virtual CD/DVD image.
 3. Start the VM
-4. Log in as the user `docker` and use the password `live`.
+4. Wait for the system to boot and start using debian2docker.
 
 Linux & qemu/kvm example:
 ```
-$ kvm -cdrom debian2docker.iso
-# when the system has booted use `docker` & `live` to log in
+$ kvm -cdrom debian2docker.iso -m 768
+# wait for the system to boot and start using debian2docker
 ```
+
+The password for the user docker is `docker.io`.
 
 ### Goals
 
