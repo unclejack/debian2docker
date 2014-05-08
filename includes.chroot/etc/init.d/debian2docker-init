@@ -1,0 +1,42 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:           debian2docker-init
+# Required-Start:     $syslog $remote_fs
+# Required-Stop:      $syslog $remote_fs
+# Default-Start:      2 3 4 5
+# Default-Stop:       0 1 6
+# Short-Description:  debian2docker initialization
+# Description
+#  debian2docker init
+### END INIT INFO
+
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+
+# Get lsb functions
+. /lib/lsb/init-functions
+
+case "$1" in
+	start)
+		# run all the live-build hooks in /lib/live/config
+		for hook in /lib/live/config/*; do
+			"$hook"
+		done
+
+		# set up serial ttys, if applicable
+		for ttyS in ttyS0 ttyS1; do
+			if dmesg | grep -q "$ttyS"; then
+				rep='s!^#(.*'"$ttyS"'.*)!\1!'
+			else
+				rep='s!^([^#].*'"$ttyS"'.*)!#\1!'
+			fi
+			md5before="$(md5sum /etc/inittab)"
+			sed -ri "$rep" /etc/inittab
+			md5after="$(md5sum /etc/inittab)"
+			if [ "$md5before" != "$md5after" ]; then
+				# reload inittab if it changed
+				init q
+			fi
+		done
+		;;
+esac

@@ -2,11 +2,12 @@
 
 set -e
 
+if [ ! -f /usr/bin/docker ]
+then
 wget https://get.docker.io/builds/Linux/x86_64/docker-latest -O /usr/bin/docker
-chmod +x /usr/bin/docker
+fi
 
-# create the cgroup mount directory
-mkdir /cgroup
+chmod +x /usr/bin/docker
 
 # set up the required fstab entries
 cat << EOF > /etc/fstab
@@ -16,4 +17,14 @@ devpts  /dev/pts    devpts  defaults    0   0
 tmpfs   /run/shm    tmpfs   defaults    0   0
 EOF
 
+if ! getent group docker > /dev/null; then
+	groupadd --system docker
+fi
+
+if ! getent passwd docker > /dev/null; then
+	useradd --gid docker --create-home --shell /bin/bash docker
+	echo 'docker:docker.io' | chpasswd
+fi
+
+update-rc.d debian2docker-init defaults
 update-rc.d docker defaults

@@ -2,7 +2,7 @@
 
 ### BEGIN INIT INFO
 # Provides:           docker
-# Required-Start:     $syslog $remote_fs
+# Required-Start:     $syslog $remote_fs debian2docker-init
 # Required-Stop:      $syslog $remote_fs
 # Default-Start:      2 3 4 5
 # Default-Stop:       0 1 6
@@ -45,6 +45,7 @@ fi
 
 # if /var/lib/docker is on BTRFS, let's use the native btrfs driver
 # (AUFS on top of BTRFS does very bad things)
+mkdir -p "$DOCKER_DIR"
 DOCKER_DEVICE="$(/bin/df -P "$DOCKER_DIR" | /usr/bin/awk 'END { print $1 }')"
 DOCKER_FSTYPE="$(/sbin/blkid -o export "$DOCKER_DEVICE" | /bin/grep TYPE= | /usr/bin/cut -d= -f2)"
 if [ "$DOCKER_FSTYPE" = 'btrfs' ]; then
