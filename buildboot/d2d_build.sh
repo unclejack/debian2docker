@@ -21,8 +21,6 @@ echo "---> running hooks"
 	done
 	rm -rf $BUILDDIR/hooks
 )
-echo "---> setting the root password"
-chroot $BUILDDIR bash -c 'echo root:live | chpasswd'
 
 echo "---> preparing the rootfs"
 (	cd $BUILDDIR
