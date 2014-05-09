@@ -1,0 +1,11 @@
+#!/bin/bash
+set -e
+
+# especially useful for inittab
+# ie: T0:23:respawn:/bin/exec-fail-sleep 30 /sbin/getty -L ttyS0 9600 vt100
+# to help prevent "respawning too fast" errors on empty serial ports
+
+sleepTime="$1"
+shift
+
+"$@" || sleep "$sleepTime"
