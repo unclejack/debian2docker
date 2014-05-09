@@ -6,7 +6,7 @@ btrfs-tools
 ca-certificates
 dhcpcd5
 ifupdown
-iproute
+iproute2
 iptables
 iputils-ping
 linux-image-amd64
