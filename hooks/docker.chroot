@@ -23,7 +23,7 @@ fi
 
 if ! getent passwd docker > /dev/null; then
 	useradd --gid docker --create-home --shell /bin/bash docker
-	echo 'docker:docker.io' | chpasswd
+	echo 'docker:live' | chpasswd
 fi
 
 update-rc.d debian2docker-init defaults
