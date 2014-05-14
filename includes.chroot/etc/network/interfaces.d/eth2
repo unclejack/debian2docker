@@ -1,0 +1,3 @@
+auto eth2
+allow-hotplug eth2
+iface eth2 inet dhcp

@@ -4,7 +4,8 @@ apt-utils
 aufs-tools
 btrfs-tools
 ca-certificates
-dhcpcd5
+isc-dhcp-client
+isc-dhcp-common
 ifupdown
 iproute2
 iptables

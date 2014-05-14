@@ -33,7 +33,7 @@ $ kvm -cdrom debian2docker.iso -m 768
 # wait for the system to boot and start using debian2docker
 ```
 
-The password for the user docker is `docker.io`.
+The password for the user docker is `live`.
 
 ### Goals
 
