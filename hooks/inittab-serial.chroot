@@ -1,3 +1,0 @@
-# adjust ttyS* lines in inittab to use /bin/exec-fail-sleep so that if a
-# serial cable isn't connected, we don't get respawning too fast errors
-sed -ri 's!^#(.*:)(/sbin/getty.*ttyS[0-9].*)!\1/bin/exec-fail-sleep 30 \2!' /etc/inittab

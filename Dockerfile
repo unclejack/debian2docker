@@ -1,5 +1,5 @@
 FROM debian:jessie
-RUN apt-get update && apt-get -y install busybox-static adduser bzip2 xz-utils nano insserv module-init-tools sudo debootstrap cpio syslinux xorriso
+RUN apt-get update && apt-get -y install busybox-static adduser bzip2 xz-utils nano insserv kmod sudo debootstrap cpio isolinux syslinux xorriso
 ADD hooks /root/hooks
 ADD buildboot /root/buildboot/
 ADD includes.binary /root/includes.binary/
