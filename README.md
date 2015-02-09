@@ -6,8 +6,6 @@ Debian2docker is a hybrid bootable ISO which starts an amd64 Linux system based 
 
 The ISO is currently about 55 MB and is based on Debian jessie.
 
-This project is meant to merge back into boot2docker if that's possible.
-
 ### How to build
 
 Building debian2docker is quite simple:
@@ -44,11 +42,10 @@ debian2docker has the following goals:
 3. Offer only the minimal tooling required to run Docker and its containers.
 4. Make use of Debian binary packages - avoid lengthy compilation times.
 5. If a package is broken or has problems, it should be fixed upstream and used.
-6. Become an official and supported Docker distribution.
 
 ### Why Debian?
 
-We've decided to choose Debian because it's a large project and it can be trusted for a few reasons:
+Debian was chosen because it's a large project and it can be trusted for a few reasons:
 
 1. Debian packages can be verified and Debian can be trusted.
 2. Debian has been around for a long time and it'll be around.
@@ -60,3 +57,17 @@ We've decided to choose Debian because it's a large project and it can be truste
 8. We can build debian2docker in a Debian container running debian2docker.
 
 The goal remains the same: running Docker to run Docker containers.
+
+### Features
+
+debian2docker supports the following Docker graph drivers:
+- aufs
+- btrfs
+- devicemapper
+- vfs
+
+AUFS is used by default for partitions formatted with ext4. BTRFS will
+be used if the storage partition is formatted as btrfs.
+
+Devicemapper and vfs aren't used by default, but the kernel and Docker
+support these two graph drivers as well.
