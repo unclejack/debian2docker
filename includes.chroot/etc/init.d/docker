@@ -26,7 +26,7 @@ DOCKER_OPTS=
 DOCKER_DESC="Docker"
 
 # debian2docker specific vars
-DOCKER_HOST=tcp://0.0.0.0:4243
+DOCKER_HOST=tcp://0.0.0.0:2375
 DOCKER_DIR=/var/lib/$BASE
 
 # Get lsb functions
@@ -40,7 +40,7 @@ fi
 if /bin/dmesg | /bin/egrep -q '(VirtualBox|VMware|QEMU)'; then
 	DOCKER_OPTS="$DOCKER_OPTS -H $DOCKER_HOST"
 else
-	DOCKER_OPTS="$DOCKER_OPTS -H :4243"
+	DOCKER_OPTS="$DOCKER_OPTS -H :2375"
 fi
 
 # if /var/lib/docker is on BTRFS, let's use the native btrfs driver
