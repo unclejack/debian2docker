@@ -1,4 +1,4 @@
-dpkg --force-all -P openssl debian-archive-keyring busybox live-tools apt file debconf-i18n klibc-utils libklibc initramfs-tools cpio gcc-4.7-base:amd64
+dpkg --force-all -P openssl debian-archive-keyring busybox live-tools apt file debconf-i18n klibc-utils libklibc initramfs-tools cpio gcc-4.8-base:amd64 gcc-4.9-base:amd64
 rm -rf /usr/share/file 
 rm -rf /usr/share/zoneinfo 
 rm -rf /var/lib/dpkg 
