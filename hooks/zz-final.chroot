@@ -1,4 +1,4 @@
-dpkg --force-all -P openssl debian-archive-keyring busybox live-tools apt file debconf-i18n klibc-utils libklibc initramfs-tools cpio gcc-4.7-base:amd64
+dpkg --force-all -P openssl debian-archive-keyring busybox live-tools apt file debconf-i18n klibc-utils libklibc initramfs-tools cpio gcc-4.8-base:amd64 gcc-4.9-base:amd64 libtext-wrapi18n-perl libtext-charwidth-perl liblocale-gettext-perl libuuid-perl libtext-iconv-perl
 rm -rf /usr/share/file 
 rm -rf /usr/share/zoneinfo 
 rm -rf /var/lib/dpkg 
@@ -16,3 +16,6 @@ rm -rf /usr/lib/apt
 rm -rf /var/lib/initramfs-tools 
 rm -rf /usr/share/perl
 rm -rf /usr/bin/dpkg*
+echo "" > /etc/resolv.conf
+rm -rf /etc/ssh/ssh_host_*
+rm -rf /tmp/*

@@ -4,6 +4,7 @@ apt-utils
 aufs-tools
 btrfs-tools
 ca-certificates
+dbus
 isc-dhcp-client
 isc-dhcp-common
 ifupdown
